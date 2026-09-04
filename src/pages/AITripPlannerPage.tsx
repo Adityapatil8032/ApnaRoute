@@ -4,6 +4,9 @@ import { GeneratedItinerary, Destination } from '../types';
 import { DESTINATIONS } from '../data/destinations';
 import { SAMPLE_ITINERARY_TEMPLATE } from '../data/mockItinerary';
 import { ItineraryCard } from '../components/planner/ItineraryCard';
+import { ConflictDetector } from '../components/planner/ConflictDetector';
+import { CostCalculator } from '../components/planner/CostCalculator';
+import { Clock, IndianRupee, MapPin } from 'lucide-react';
 
 interface AITripPlannerPageProps {
   initialDestination?: string;
@@ -37,6 +40,7 @@ export const AITripPlannerPage: React.FC<AITripPlannerPageProps> = ({
     'Local Food & Cafes'
   ]);
 
+  const [activeRightTab, setActiveRightTab] = useState<'itinerary' | 'conflicts' | 'cost'>('itinerary');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedResult, setGeneratedResult] = useState<GeneratedItinerary | null>(SAMPLE_ITINERARY_TEMPLATE);
 
@@ -70,6 +74,7 @@ export const AITripPlannerPage: React.FC<AITripPlannerPageProps> = ({
         summary: `A practical, ground-verified ${days}-day itinerary for ${destination} tuned for ${selectedInterests.join(', ')} with scheduled transit using ${preferredTransport}.`
       };
       setGeneratedResult(updatedItinerary);
+      setActiveRightTab('itinerary');
     }, 1000);
   };
 
@@ -257,20 +262,68 @@ export const AITripPlannerPage: React.FC<AITripPlannerPageProps> = ({
           </div>
         </div>
 
-        {/* Generated Itinerary Output (7 cols) */}
-        <div className="lg:col-span-7">
-          {generatedResult ? (
-            <ItineraryCard
-              itinerary={generatedResult}
-              onSaveTrip={onSaveTrip}
-              isSaved={savedTripIds.includes(generatedResult.id)}
-            />
-          ) : (
-            <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center shadow-soft">
-              <Sparkles className="w-12 h-12 text-brand-400 mx-auto mb-3 animate-pulse" />
-              <h3 className="text-base font-bold text-slate-800">No route generated yet</h3>
-              <p className="text-xs text-slate-500 mt-1">Select your preferences and click "Generate My Route" to preview the schedule.</p>
-            </div>
+        {/* Generated Output & Intelligence Tools (7 cols) */}
+        <div className="lg:col-span-7 space-y-4">
+          {/* Tabs header */}
+          <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-2xl border border-slate-200">
+            <button
+              onClick={() => setActiveRightTab('itinerary')}
+              className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                activeRightTab === 'itinerary'
+                  ? 'bg-white text-slate-900 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <MapPin className="w-3.5 h-3.5 text-brand-600" />
+              <span>Itinerary</span>
+            </button>
+            <button
+              onClick={() => setActiveRightTab('conflicts')}
+              className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                activeRightTab === 'conflicts'
+                  ? 'bg-white text-amber-900 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Clock className="w-3.5 h-3.5 text-amber-600" />
+              <span>Conflict Radar</span>
+              <span className="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded-full">2</span>
+            </button>
+            <button
+              onClick={() => setActiveRightTab('cost')}
+              className={`flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+                activeRightTab === 'cost'
+                  ? 'bg-white text-emerald-900 shadow-xs'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <IndianRupee className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Cost Calculator</span>
+            </button>
+          </div>
+
+          {activeRightTab === 'itinerary' && (
+            generatedResult ? (
+              <ItineraryCard
+                itinerary={generatedResult}
+                onSaveTrip={onSaveTrip}
+                isSaved={savedTripIds.includes(generatedResult.id)}
+              />
+            ) : (
+              <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center shadow-soft">
+                <Sparkles className="w-12 h-12 text-brand-400 mx-auto mb-3 animate-pulse" />
+                <h3 className="text-base font-bold text-slate-800">No route generated yet</h3>
+                <p className="text-xs text-slate-500 mt-1">Select your preferences and click "Generate My Route" to preview the schedule.</p>
+              </div>
+            )
+          )}
+
+          {activeRightTab === 'conflicts' && (
+            <ConflictDetector />
+          )}
+
+          {activeRightTab === 'cost' && (
+            <CostCalculator />
           )}
         </div>
 

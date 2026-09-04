@@ -143,6 +143,75 @@ export const DESTINATIONS: Destination[] = [
         vibe: 'Peaceful & Meditative',
         sustainabilityNote: 'Forest department regulated eco-pathway; zero plastic zone.'
       }
+    ],
+    radarPlaces: [
+      { id: 'r1', name: 'Lady Willingdon Hospital & Trauma Unit', category: 'Hospitals', distance: '350 m', status: 'Open 24/7', landmark: 'Mall Road North end' },
+      { id: 'r2', name: 'Mall Road Pre-Paid Auto Stand', category: 'Rickshaws', distance: '120 m', status: 'Operational', landmark: 'Opposite Tourist Information Centre' },
+      { id: 'r3', name: 'HRTC Intercity Bus Station', category: 'Buses', distance: '850 m', status: 'Operational', landmark: 'Near Beas Bridge' },
+      { id: 'r4', name: 'Old Manali Trout & Wood-Fired Cafes', category: 'Food', distance: '1.2 km', status: 'Operational', landmark: 'Club House Road' },
+      { id: 'r5', name: 'Himachal Handloom & Woolens Emporium', category: 'Bazaars', distance: '200 m', status: 'Operational', landmark: 'Central Mall Promenade' },
+      { id: 'r6', name: 'Indian Oil & 60kW EV Fast Charger', category: 'Fuel', distance: '2.1 km', status: 'Open 24/7', landmark: 'Kullu-Manali Highway Bypass' },
+      { id: 'r7', name: 'Cedar Wood Eco Homestay Cluster', category: 'Hotels', distance: '600 m', status: 'Operational', landmark: 'Log Huts Area' }
+    ],
+    heritageIntel: {
+      historicalSignificance: 'Ancient seat of sage Manu who re-created human life after the great deluge according to Hindu scriptures. Former British summer outpost and Kullu kingdom trade link.',
+      architecturalStyle: 'Kath-Kuni style timber-and-stone bonding resistant to seismic tremors; wooden tiered pagoda temples.',
+      culturalEtiquette: [
+        'Remove leather items and shoes before entering Hadimba and Manu temple sanctums.',
+        'Seek permission before photographing village elders in traditional Pattu attire.',
+        'Avoid loud music or littering in sacred deodar groves (Van Vihar).'
+      ],
+      recommendedDressCode: 'Modest shoulders and knees coverage for temples; warm woolen layers from September to April.',
+      photographyRules: 'Allowed in courtyards; strictly prohibited inside sanctum sanctorum of Hadimba Devi.',
+      localDialectGreeting: { phrase: 'Namaste ji / Julley (in Upper valley)', meaning: 'Respectful greeting wishing peace and auspiciousness' }
+    },
+    sentiment: {
+      overallScore: 93,
+      totalReviewsAnalyzed: 1420,
+      aiHighlights: [
+        'Magical snowfall landscapes around Atal Tunnel and Solang.',
+        'Authentic, piping-hot Siddu with pure ghee in Old Manali.',
+        'Clean mountain air and tranquil deodar walks in early mornings.'
+      ],
+      reportedGroundIssues: [
+        'Traffic congestion between Aleo and Mall Road during peak holiday evenings.',
+        'Prepaid taxi fare surge on heavy snow days.',
+        'Pedestrian steep climbs require sturdy walking shoes in Old Manali.'
+      ]
+    },
+    seasonGuides: [
+      {
+        season: 'Winter',
+        months: 'Dec - Feb',
+        avgTemp: '-2°C to 8°C',
+        highlights: 'Heavy snowfall, skiing in Solang, winter carnival.',
+        roadAccessibility: 'Chains Recommended',
+        packingMustHaves: ['Thermal innerwear', 'Waterproof snow boots', 'Heavy down jacket', 'Woolen gloves']
+      },
+      {
+        season: 'Summer',
+        months: 'Mar - Jun',
+        avgTemp: '12°C to 25°C',
+        highlights: 'Pleasant weather, paragliding, open mountain passes to Rohtang & Ladakh.',
+        roadAccessibility: 'Full Access',
+        packingMustHaves: ['Light sweaters', 'UV sunglasses', 'Sunscreen SPF 50', 'Trekking shoes']
+      },
+      {
+        season: 'Monsoon',
+        months: 'Jul - Aug',
+        avgTemp: '16°C to 22°C',
+        highlights: 'Lush green valleys, roaring Beas river, apple blossom harvest begins.',
+        roadAccessibility: 'Landslide Caution',
+        packingMustHaves: ['Waterproof raincoat', 'Quick-dry pants', 'Sturdy grip boots', 'Umbrella']
+      },
+      {
+        season: 'Autumn',
+        months: 'Sep - Nov',
+        avgTemp: '6°C to 18°C',
+        highlights: 'Golden autumn leaves, crisp blue skies, clearest mountain photography.',
+        roadAccessibility: 'Pleasant',
+        packingMustHaves: ['Fleece jackets', 'Moisturizer & lip balm', 'Windcheater', 'Thermal socks']
+      }
     ]
   },
   {

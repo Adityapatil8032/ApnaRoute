@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Star, MapPin, Sparkles, Heart, Compass, Bed, UtensilsCrossed, Camera } from 'lucide-react';
+import { ArrowLeft, Star, MapPin, Sparkles, Heart, Compass, Bed, UtensilsCrossed, Camera, Radar, Backpack, Calendar, Landmark, MessageSquareQuote } from 'lucide-react';
 import { Destination, PageRoute } from '../types';
 import { WeatherCard } from '../components/destination/WeatherCard';
 import { TransportCard } from '../components/destination/TransportCard';
+import { HyperLocalRadar } from '../components/destination/HyperLocalRadar';
+import { SeasonPlannerWidget } from '../components/destination/SeasonPlannerWidget';
+import { SmartPackingWidget } from '../components/destination/SmartPackingWidget';
+import { HeritageIntelligenceCard } from '../components/destination/HeritageIntelligenceCard';
+import { SentimentReviewCard } from '../components/destination/SentimentReviewCard';
 
 interface DestinationDetailPageProps {
   destination: Destination;
@@ -21,7 +26,21 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
   isFavorite,
   onToggleFavorite,
 }) => {
-  const [activeTab, setActiveTab] = useState<'all' | 'transport' | 'weather' | 'places' | 'food' | 'stays'>('all');
+  const [activeTab, setActiveTab] = useState<string>('all');
+
+  const tabs = [
+    { id: 'all', label: 'All Intelligence' },
+    { id: 'transport', label: 'Transport (6 Modes)' },
+    { id: 'radar', label: 'Hyper-Local Radar' },
+    { id: 'weather', label: 'Weather & Advisory' },
+    { id: 'seasons', label: 'Season Planning' },
+    { id: 'packing', label: 'Smart Packing AI' },
+    { id: 'heritage', label: 'Heritage & Etiquette' },
+    { id: 'reviews', label: 'Reviews Sentiment' },
+    { id: 'places', label: 'Places to Explore' },
+    { id: 'food', label: 'Regional Cuisine' },
+    { id: 'stays', label: 'Verified Stays' },
+  ];
 
   return (
     <div className="min-h-screen pb-20">
@@ -30,7 +49,7 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
           <button
             onClick={onBack}
-            className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors"
+            className="flex items-center gap-2 text-xs sm:text-sm font-semibold text-slate-600 hover:text-brand-600 transition-colors cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Destinations</span>
@@ -38,8 +57,8 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
 
           <div className="flex items-center gap-2">
             <button
-              onClick={(e) => onToggleFavorite(destination.id, e)}
-              className={`p-2 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-colors ${
+              onClick={(e: React.MouseEvent) => onToggleFavorite(destination.id, e)}
+              className={`p-2 rounded-xl border text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer ${
                 isFavorite
                   ? 'bg-rose-50 text-rose-700 border-rose-200'
                   : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
@@ -51,7 +70,7 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
 
             <button
               onClick={() => onPlanTripWithDestination(destination.name)}
-              className="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-semibold shadow-xs flex items-center gap-1.5 transition-all"
+              className="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-semibold shadow-xs flex items-center gap-1.5 transition-all cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>Plan AI Route</span>
@@ -116,18 +135,11 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
         
         {/* Navigation Section Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-4 scrollbar-none border-b border-slate-200 mb-8">
-          {[
-            { id: 'all', label: 'All Highlights' },
-            { id: 'transport', label: 'Transport Availability (6 Modes)' },
-            { id: 'weather', label: 'Weather & Advisory' },
-            { id: 'places', label: 'Places to Explore' },
-            { id: 'food', label: 'Food & Cuisine' },
-            { id: 'stays', label: 'Stay Options' },
-          ].map((tab) => (
+          {tabs.map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-3.5 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 activeTab === tab.id
                   ? 'bg-brand-600 text-white shadow-xs'
                   : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'
@@ -142,10 +154,10 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
           
           {/* Overview Section */}
           {(activeTab === 'all') && (
-            <section className="bg-white rounded-2xl border border-slate-200 p-6 shadow-soft">
+            <section className="bg-white rounded-3xl border border-slate-200 p-6 shadow-soft">
               <h2 className="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
                 <Compass className="w-4 h-4 text-brand-600" />
-                Overview & Regional Character
+                Overview & Ground Realities
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                 {destination.overview}
@@ -175,11 +187,62 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
             </section>
           )}
 
+          {/* Hyper-Local Map Radar (Feature 4) */}
+          {(activeTab === 'all' || activeTab === 'radar') && (
+            <section id="radar-section">
+              <HyperLocalRadar
+                radarPlaces={destination.radarPlaces}
+                destinationName={destination.name}
+              />
+            </section>
+          )}
+
           {/* Weather Section (Core Feature 2) */}
           {(activeTab === 'all' || activeTab === 'weather') && (
             <section id="weather-section">
               <WeatherCard
                 weather={destination.weather}
+                destinationName={destination.name}
+              />
+            </section>
+          )}
+
+          {/* Season-Wise Planning (Feature 2) */}
+          {(activeTab === 'all' || activeTab === 'seasons') && (
+            <section id="seasons-section">
+              <SeasonPlannerWidget
+                seasonGuides={destination.seasonGuides}
+                destinationName={destination.name}
+              />
+            </section>
+          )}
+
+          {/* Smart Packing AI (Feature 13) */}
+          {(activeTab === 'all' || activeTab === 'packing') && (
+            <section id="packing-section">
+              <SmartPackingWidget
+                destinationName={destination.name}
+                category={destination.category}
+                weatherCondition={destination.weather.condition}
+              />
+            </section>
+          )}
+
+          {/* Heritage Intelligence (Feature 17) */}
+          {(activeTab === 'all' || activeTab === 'heritage') && (
+            <section id="heritage-section">
+              <HeritageIntelligenceCard
+                heritageIntel={destination.heritageIntel}
+                destinationName={destination.name}
+              />
+            </section>
+          )}
+
+          {/* Reviews AI Sentiment (Feature 15) */}
+          {(activeTab === 'all' || activeTab === 'reviews') && (
+            <section id="sentiment-section">
+              <SentimentReviewCard
+                sentiment={destination.sentiment}
                 destinationName={destination.name}
               />
             </section>
@@ -307,7 +370,7 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
 
                     <button
                       onClick={() => onNavigate('services')}
-                      className="mt-4 w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold rounded-xl transition-colors"
+                      className="mt-4 w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold rounded-xl transition-colors cursor-pointer"
                     >
                       Inquire / View Stays
                     </button>
@@ -317,9 +380,9 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
             </section>
           )}
 
-          {/* Local Experiences & Cultural Etiquette */}
+          {/* Local Experiences */}
           {destination.localExperiences && destination.localExperiences.length > 0 && (
-            <section className="p-6 rounded-2xl bg-gradient-to-r from-brand-50/80 to-sky-50/50 border border-brand-200">
+            <section className="p-6 rounded-3xl bg-gradient-to-r from-brand-50/80 to-sky-50/50 border border-brand-200">
               <h3 className="text-base font-bold text-slate-900 mb-3 flex items-center gap-2">
                 <Sparkles className="w-4 h-4 text-brand-600" />
                 Curated Local Experiences in {destination.name}

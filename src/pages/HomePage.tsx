@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Compass, ArrowRight, ShieldCheck, Heart, Leaf, UtensilsCrossed } from 'lucide-react';
+import { Sparkles, Compass, ArrowRight, ShieldCheck, Heart, Leaf, UtensilsCrossed, Navigation, Users, ShieldAlert, Radio, Clock, MapPin } from 'lucide-react';
 import { Destination, PageRoute } from '../types';
 import { DESTINATIONS } from '../data/destinations';
 import { SearchBar } from '../components/common/SearchBar';
@@ -131,6 +131,82 @@ export const HomePage: React.FC<HomePageProps> = ({
               metricBadge="Local Flavors"
               onClick={() => handleFeatureClick('Food')}
             />
+          </div>
+        </section>
+
+        {/* SIH 2026 Feature Highlights Strip */}
+        <section className="bg-gradient-to-br from-slate-900 via-brand-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-card relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="relative z-10 space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-brand-500/20 text-brand-300 px-2.5 py-1 rounded-full border border-brand-500/30">
+                  SIH 2026 Real-Time Travel Safety & Intelligence
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-white mt-1 tracking-tight">
+                  Ground-Reality First: 20 Advanced Travel Features
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-300 mt-1 max-w-2xl">
+                  From satellite-linked GPS route monitoring and timing conflict detection to verified local guides and 112 emergency radar.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div
+                onClick={() => onNavigate('trip-tracking')}
+                className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-brand-500/40 transition-all cursor-pointer group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Navigation className="w-5 h-5 text-brand-400" />
+                </div>
+                <h3 className="text-sm font-bold text-white group-hover:text-brand-300 transition-colors">
+                  Live GPS Tracking & Route Safety
+                </h3>
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Active speed tracking, mountain hair-pin warnings, and road risk index.
+                </p>
+                <div className="mt-3 text-xs font-semibold text-brand-400 flex items-center gap-1">
+                  Launch Radar <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+
+              <div
+                onClick={() => onNavigate('connect-travelers')}
+                className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-purple-500/40 transition-all cursor-pointer group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Users className="w-5 h-5 text-purple-400" />
+                </div>
+                <h3 className="text-sm font-bold text-white group-hover:text-purple-300 transition-colors">
+                  Connect Travelers & Split Costs
+                </h3>
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Match with verified companions heading to your destination to share union cabs.
+                </p>
+                <div className="mt-3 text-xs font-semibold text-purple-400 flex items-center gap-1">
+                  Find Travel Mates <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+
+              <div
+                onClick={() => onNavigate('ai-planner')}
+                className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 hover:border-amber-500/40 transition-all cursor-pointer group"
+              >
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                  <Clock className="w-5 h-5 text-amber-400" />
+                </div>
+                <h3 className="text-sm font-bold text-white group-hover:text-amber-300 transition-colors">
+                  AI Route & Timing Clash Detector
+                </h3>
+                <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                  Detects schedule clashes between train delays, museum hours, and mountain passes.
+                </p>
+                <div className="mt-3 text-xs font-semibold text-amber-400 flex items-center gap-1">
+                  Plan Realistic Trip <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 

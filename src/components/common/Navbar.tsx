@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, Menu, X, User, Heart, Sparkles, LogOut, Leaf } from 'lucide-react';
+import { Compass, Menu, X, User, Heart, Sparkles, LogOut, Leaf, Bell, AlertOctagon, Navigation, Users } from 'lucide-react';
 import { PageRoute } from '../../types';
 
 interface NavbarProps {
@@ -8,6 +8,9 @@ interface NavbarProps {
   isAuthenticated: boolean;
   onLogout: () => void;
   onLoginClick: () => void;
+  onOpenSOS?: () => void;
+  onToggleNotifications?: () => void;
+  unreadNotificationsCount?: number;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -15,7 +18,10 @@ export const Navbar: React.FC<NavbarProps> = ({
   onNavigate,
   isAuthenticated,
   onLogout,
-  onLoginClick
+  onLoginClick,
+  onOpenSOS,
+  onToggleNotifications,
+  unreadNotificationsCount = 0,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
@@ -23,10 +29,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navItems: { label: string; page: PageRoute; icon?: React.ReactNode }[] = [
     { label: 'Home', page: 'home' },
     { label: 'Explore', page: 'explore' },
-    { label: 'AI Trip Planner', page: 'ai-planner', icon: <Sparkles className="w-3.5 h-3.5 text-amber-500" /> },
+    { label: 'AI Planner', page: 'ai-planner', icon: <Sparkles className="w-3.5 h-3.5 text-amber-500" /> },
+    { label: 'GPS Tracking', page: 'trip-tracking', icon: <Navigation className="w-3.5 h-3.5 text-brand-500" /> },
+    { label: 'Connect', page: 'connect-travelers', icon: <Users className="w-3.5 h-3.5 text-purple-500" /> },
     { label: 'My Trips', page: 'my-trips' },
     { label: 'Services', page: 'services' },
-    { label: 'Sustainable', page: 'sustainable', icon: <Leaf className="w-3.5 h-3.5 text-emerald-500" /> },
+    { label: 'Eco', page: 'sustainable', icon: <Leaf className="w-3.5 h-3.5 text-emerald-500" /> },
   ];
 
   const handleNav = (page: PageRoute) => {
@@ -91,8 +99,37 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           )}
 
-          {/* Right Action / Profile */}
-          <div className="flex items-center gap-3">
+          {/* Right Action / Profile & Utility Controls */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {isAuthenticated && (
+              <>
+                {/* Emergency SOS Trigger Button */}
+                <button
+                  onClick={onOpenSOS}
+                  className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold shadow-md shadow-rose-600/20 transition-all active:scale-95"
+                  title="Emergency SOS 112 Radar"
+                >
+                  <AlertOctagon className="w-3.5 h-3.5 animate-pulse" />
+                  <span className="hidden sm:inline">SOS</span>
+                </button>
+
+                {/* Smart Notifications Bell Button */}
+                <button
+                  onClick={onToggleNotifications}
+                  className="relative p-2 rounded-xl text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors"
+                  title="Smart Route & Weather Notifications"
+                  aria-label="Notifications"
+                >
+                  <Bell className="w-4 h-4" />
+                  {unreadNotificationsCount > 0 && (
+                    <span className="absolute top-1 right-1 w-4 h-4 bg-amber-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center ring-2 ring-white">
+                      {unreadNotificationsCount}
+                    </span>
+                  )}
+                </button>
+              </>
+            )}
+
             {isAuthenticated ? (
               <div className="relative">
                 <button
