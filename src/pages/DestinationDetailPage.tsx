@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Star, MapPin, Sparkles, Heart, Camera } from 'lucide-react';
+import { ArrowLeft, Star, MapPin, Sparkles, Heart, Camera, Compass, Bed, UtensilsCrossed } from 'lucide-react';
 import { Destination, PageRoute } from '../types';
 import { WeatherCard } from '../components/destination/WeatherCard';
 import { TransportCard } from '../components/destination/TransportCard';
