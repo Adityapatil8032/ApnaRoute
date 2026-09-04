@@ -224,6 +224,7 @@ export interface SmartNotification {
   message: string;
   timestamp: string;
   read: boolean;
+  isRead?: boolean;
   priority: 'high' | 'medium' | 'low';
 }
 

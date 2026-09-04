@@ -77,14 +77,14 @@ export function App() {
   };
 
   const handleMarkAllNotificationsRead = () => {
-    setNotifications((prev: SmartNotification[]) => prev.map((n) => ({ ...n, isRead: true })));
+    setNotifications((prev: SmartNotification[]) => prev.map((n) => ({ ...n, read: true })));
   };
 
   const handleDismissNotification = (id: string) => {
     setNotifications((prev: SmartNotification[]) => prev.filter((n) => n.id !== id));
   };
 
-  const unreadNotificationsCount = notifications.filter((n) => !n.isRead).length;
+  const unreadNotificationsCount = notifications.filter((n) => !n.read).length;
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans relative">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Sparkles, Compass, ArrowRight, ShieldCheck, Heart, Leaf, UtensilsCrossed, Navigation, Users, ShieldAlert, Radio, Clock, MapPin } from 'lucide-react';
+import { Sparkles, Compass, ArrowRight, ShieldCheck, Heart, Leaf, UtensilsCrossed, Navigation, Users, Clock } from 'lucide-react';
 import { Destination, PageRoute } from '../types';
 import { DESTINATIONS } from '../data/destinations';
 import { SearchBar } from '../components/common/SearchBar';
