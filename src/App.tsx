@@ -139,6 +139,7 @@ export function App() {
             onPlanTripWithDestination={handlePlanTripWithDestination}
             isFavorite={favorites.includes(selectedDestination.id)}
             onToggleFavorite={handleToggleFavorite}
+            isAuthenticated={isAuthenticated}
           />
         )}
 

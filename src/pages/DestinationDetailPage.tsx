@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Star, MapPin, Sparkles, Heart, Compass, Bed, UtensilsCrossed, Camera, Radar, Backpack, Calendar, Landmark, MessageSquareQuote } from 'lucide-react';
+import { ArrowLeft, Star, MapPin, Sparkles, Heart, Camera } from 'lucide-react';
 import { Destination, PageRoute } from '../types';
 import { WeatherCard } from '../components/destination/WeatherCard';
 import { TransportCard } from '../components/destination/TransportCard';
@@ -8,6 +8,7 @@ import { SeasonPlannerWidget } from '../components/destination/SeasonPlannerWidg
 import { SmartPackingWidget } from '../components/destination/SmartPackingWidget';
 import { HeritageIntelligenceCard } from '../components/destination/HeritageIntelligenceCard';
 import { SentimentReviewCard } from '../components/destination/SentimentReviewCard';
+import { DestinationPhotoFeed } from '../components/destination/DestinationPhotoFeed';
 
 interface DestinationDetailPageProps {
   destination: Destination;
@@ -16,6 +17,7 @@ interface DestinationDetailPageProps {
   onPlanTripWithDestination: (destName: string) => void;
   isFavorite: boolean;
   onToggleFavorite: (id: string, e: React.MouseEvent) => void;
+  isAuthenticated?: boolean;
 }
 
 export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
@@ -25,11 +27,13 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
   onPlanTripWithDestination,
   isFavorite,
   onToggleFavorite,
+  isAuthenticated = false,
 }) => {
   const [activeTab, setActiveTab] = useState<string>('all');
 
   const tabs = [
     { id: 'all', label: 'All Intelligence' },
+    { id: 'photos', label: 'Latest Photos' },
     { id: 'transport', label: 'Transport (6 Modes)' },
     { id: 'radar', label: 'Hyper-Local Radar' },
     { id: 'weather', label: 'Weather & Advisory' },
@@ -244,6 +248,17 @@ export const DestinationDetailPage: React.FC<DestinationDetailPageProps> = ({
               <SentimentReviewCard
                 sentiment={destination.sentiment}
                 destinationName={destination.name}
+              />
+            </section>
+          )}
+
+          {/* Automatic Date-Wise Destination Photo Feed (New Feature) */}
+          {(activeTab === 'all' || activeTab === 'photos') && (
+            <section id="photos-section">
+              <DestinationPhotoFeed
+                destination={destination}
+                isAuthenticated={isAuthenticated}
+                onLoginPrompt={() => onNavigate('landing')}
               />
             </section>
           )}

@@ -248,3 +248,16 @@ export type PageRoute =
   | 'sustainable'
   | 'connect-travelers'
   | 'trip-tracking';
+
+// Destination Photo Feed (Feature: Automatic Date-Wise Destination Photo Feed)
+export interface DestinationPhoto {
+  id: string;
+  destination_id: string;
+  destination_name: string;
+  user_id: string;
+  user_name: string;
+  user_avatar?: string;
+  photo_url: string;
+  caption?: string;
+  created_at: string; // ISO 8601 string generated automatically by backend/database
+}
